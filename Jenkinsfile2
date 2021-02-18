@@ -17,7 +17,7 @@ pipeline {
          stage("deploy"){
             steps{
              
-                 sh "scp -r /var/lib/jenkins/workspace/Pipeline-testing02/target/mavenweb.war jenkins@172.31.6.46:/opt/tomcat/webapps"
+                 sh "scp -r /var/lib/jenkins/workspace/project1/target/mavenweb.war jenkins@172.31.6.46:/opt/apache-tomcat-8.5.63/webapps"
                  
                 }
         } 
@@ -31,10 +31,10 @@ pipeline {
                "files": [
               {
               "pattern": "*.war",
-              "target": "testrepo/",
+              "target": "vensararepo/",
 	          "recursive": "true",
               "flat": "false",
-              "props": "Version=2.0"
+              "props": "Version=1.0"
               }
          ]
     }''',
