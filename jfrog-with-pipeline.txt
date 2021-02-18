@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+     environment {
+        PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
+    } 
+    stages {
+        stage("clone code"){
+            steps{
+               git credentialsId: 'git_credentials', url: 'https://github.com/nagaraju7225/mavenweb.git'
+            }
+        }
+        stage("build code"){
+            steps{
+              sh "mvn clean install"
+            }
+        }
+         stage("deploy"){
+            steps{
+             
+                 sh "scp -r /var/lib/jenkins/workspace/Pipeline-testing02/target/mavenweb.war jenkins@172.31.6.46:/opt/tomcat/webapps"
+                 
+                }
+        } 
+    stage('Deploy to Jfrog') {
+    steps {
+       script { 
+              
+       rtUpload (
+           serverId: 'jfrog-server',
+             spec: '''{
+               "files": [
+              {
+              "pattern": "*.war",
+              "target": "testrepo/",
+	          "recursive": "true",
+              "flat": "false",
+              "props": "Version=2.0"
+              }
+         ]
+    }''',
+    buildName: '${env.JOB_NAME}',
+    buildNumber: '${env.BUILD_NUMBER}'
+)
+
+       }
+            
+       }
+        }
+}
+}
