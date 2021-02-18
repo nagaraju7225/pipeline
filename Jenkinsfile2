@@ -31,7 +31,7 @@ pipeline {
                "files": [
               {
               "pattern": "*.war",
-              "target": "rajurepo/",
+              "target": "mavenjfrogrepo/",
 	          "recursive": "true",
               "flat": "false",
               "props": "Version=1.0"
