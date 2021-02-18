@@ -31,7 +31,7 @@ pipeline {
                "files": [
               {
               "pattern": "*.war",
-              "target": "vensararepo/",
+              "target": "rajurepo/",
 	          "recursive": "true",
               "flat": "false",
               "props": "Version=1.0"
